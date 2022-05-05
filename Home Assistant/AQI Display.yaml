@@ -1,0 +1,62 @@
+type: grid
+cards:
+  - type: custom:button-card
+    color_type: card
+    entity: sensor.outdoor_aqi_description
+    name: Perth Air Quality
+    aspect_ratio: 1/1
+    state:
+      - value: Moderate
+        color: orange
+        icon: mdi:cloud
+        name: Moderate Air
+      - value: Unhealthy for Sensitive Groups
+        color: Orange
+        icon: mdi:alert
+        name: Unhealthy Sensitive Groups
+        styles:
+          card:
+            - animation: blink 2s ease infinite
+      - value: Unhealthy
+        color: red
+        icon: mdi:alert
+        name: Unheathy Air
+        styles:
+          card:
+            - animation: blink 2s ease infinite
+      - value: Very Unhealthy
+        color: red
+        icon: mdi:alert
+        name: Very unheathy Air
+        styles:
+          card:
+            - animation: blink 2s ease infinite
+      - value: Hazardous
+        color: red
+        icon: mdi:alert
+        name: Hazardous Air
+        styles:
+          card:
+            - animation: blink 2s ease infinite
+      - value: Good
+        color: green
+        icon: mdi:cloud
+        name: Good Air Quality
+  - type: custom:mini-graph-card
+    line_width: 3
+    height: 100
+    color_thresholds:
+      - value: 2
+        color: '#0CFF00'
+      - value: 10
+        color: '#d35400'
+      - value: 50
+        color: '#c0392b'
+    entities:
+      - entity: sensor.outdoor_aqi
+        show_points: true
+        show_extrema: true
+        show_state: true
+        name: Outdoor AQI
+square: false
+columns: 2
