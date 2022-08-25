@@ -1,0 +1,710 @@
+[
+    {
+        "id": "41fe8a54bc9548a1",
+        "type": "switch",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "6",
+                "vt": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "8",
+                "vt": "num",
+                "v2": "20",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21",
+                "vt": "num",
+                "v2": "49",
+                "v2t": "num"
+            },
+            {
+                "t": "gte",
+                "v": "50",
+                "vt": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 1550,
+        "y": 420,
+        "wires": [
+            [
+                "5dab3a12df7244ed"
+            ],
+            [
+                "cd3a0d00e57db316"
+            ],
+            [
+                "a55597996872b52f"
+            ],
+            [
+                "15d3b749ec76cc7f"
+            ]
+        ]
+    },
+    {
+        "id": "45f9772f639b0bbf",
+        "type": "link in",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "links": [
+            "d57de176.d3441"
+        ],
+        "x": 495,
+        "y": 340,
+        "wires": [
+            [
+                "209d0faa55bfabb1"
+            ]
+        ]
+    },
+    {
+        "id": "209d0faa55bfabb1",
+        "type": "gate",
+        "z": "e46a18d855767dce",
+        "name": "Awake",
+        "controlTopic": "Awake",
+        "defaultState": "open",
+        "openCmd": "true",
+        "closeCmd": "false",
+        "toggleCmd": "",
+        "defaultCmd": "",
+        "statusCmd": "",
+        "persist": false,
+        "storeName": "memory",
+        "x": 710,
+        "y": 400,
+        "wires": [
+            [
+                "b26a267b71f29b08"
+            ]
+        ]
+    },
+    {
+        "id": "e00b5f343fd373f0",
+        "type": "link in",
+        "z": "e46a18d855767dce",
+        "name": "Occupancy",
+        "links": [],
+        "x": 315,
+        "y": 300,
+        "wires": [
+            [
+                "062661580c08e127"
+            ]
+        ]
+    },
+    {
+        "id": "062661580c08e127",
+        "type": "gate",
+        "z": "e46a18d855767dce",
+        "name": "Occupancy",
+        "controlTopic": "Occupancy",
+        "defaultState": "open",
+        "openCmd": "true",
+        "closeCmd": "false",
+        "toggleCmd": "",
+        "defaultCmd": "",
+        "statusCmd": "",
+        "persist": true,
+        "storeName": "memory",
+        "x": 550,
+        "y": 400,
+        "wires": [
+            [
+                "209d0faa55bfabb1"
+            ]
+        ]
+    },
+    {
+        "id": "5dab3a12df7244ed",
+        "type": "api-call-service",
+        "z": "e46a18d855767dce",
+        "name": "Air Purifer - OFF",
+        "server": "",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "fan",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "fan.bedroom_air_purifier"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1780,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "15d3b749ec76cc7f",
+        "type": "api-call-service",
+        "z": "e46a18d855767dce",
+        "name": "Air Purifer - set preset high",
+        "server": "",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "fan",
+        "service": "set_percentage",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "fan.bedroom_air_purifier"
+        ],
+        "data": "{\"percentage\":\"100\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1820,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce90337c3c663d03",
+        "type": "link in",
+        "z": "e46a18d855767dce",
+        "name": "AQI",
+        "links": [],
+        "x": 335,
+        "y": 400,
+        "wires": [
+            [
+                "062661580c08e127"
+            ]
+        ]
+    },
+    {
+        "id": "b26a267b71f29b08",
+        "type": "gate",
+        "z": "e46a18d855767dce",
+        "name": "Overide",
+        "controlTopic": "Overide",
+        "defaultState": "open",
+        "openCmd": "off",
+        "closeCmd": "on",
+        "toggleCmd": "",
+        "defaultCmd": "",
+        "statusCmd": "",
+        "persist": true,
+        "storeName": "memory",
+        "x": 880,
+        "y": 400,
+        "wires": [
+            [
+                "1e44761f79b923bc"
+            ]
+        ]
+    },
+    {
+        "id": "164aa11561ec1ff6",
+        "type": "change",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Overide",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "b26a267b71f29b08"
+            ]
+        ]
+    },
+    {
+        "id": "d8e3bd5a6d42b545",
+        "type": "server-state-changed",
+        "z": "e46a18d855767dce",
+        "name": "input_boolean.manual_air_purifer",
+        "server": "",
+        "version": 4,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": true,
+        "ignoreCurrentStateUnavailable": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "164aa11561ec1ff6",
+                "2b14bd167ea9f612"
+            ],
+            [
+                "164aa11561ec1ff6"
+            ]
+        ]
+    },
+    {
+        "id": "2b14bd167ea9f612",
+        "type": "delay",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "120",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "752810edcae9337a"
+            ]
+        ]
+    },
+    {
+        "id": "752810edcae9337a",
+        "type": "api-call-service",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "server": "",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.manual_air_purifer"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "last",
+        "x": 860,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aecd1669ca3f2678",
+        "type": "switch",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 220,
+        "wires": [
+            [
+                "dc8d11cae50a6813"
+            ]
+        ]
+    },
+    {
+        "id": "dc8d11cae50a6813",
+        "type": "delay",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "hours",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 1560,
+        "y": 220,
+        "wires": [
+            [
+                "5dab3a12df7244ed"
+            ]
+        ]
+    },
+    {
+        "id": "e38ef72d726d7c29",
+        "type": "rbe",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "func": "deadbandEq",
+        "gap": "15%",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1400,
+        "y": 420,
+        "wires": [
+            [
+                "41fe8a54bc9548a1"
+            ]
+        ]
+    },
+    {
+        "id": "ecdf3e4351947758",
+        "type": "delay",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1240,
+        "y": 400,
+        "wires": [
+            [
+                "e38ef72d726d7c29"
+            ]
+        ]
+    },
+    {
+        "id": "97a4fd8171ffdde5",
+        "type": "server-state-changed",
+        "z": "e46a18d855767dce",
+        "name": "upstairs door",
+        "server": "",
+        "version": 4,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "for": "2",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": true,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": true,
+        "ignoreCurrentStateUnavailable": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 710,
+        "y": 280,
+        "wires": [
+            [
+                "9542649075b5a8b4",
+                "5dab3a12df7244ed"
+            ],
+            [
+                "9542649075b5a8b4"
+            ]
+        ]
+    },
+    {
+        "id": "1e44761f79b923bc",
+        "type": "gate",
+        "z": "e46a18d855767dce",
+        "name": "Door Overide",
+        "controlTopic": "Overide",
+        "defaultState": "open",
+        "openCmd": "off",
+        "closeCmd": "on",
+        "toggleCmd": "",
+        "defaultCmd": "",
+        "statusCmd": "",
+        "persist": true,
+        "storeName": "memory",
+        "x": 1060,
+        "y": 400,
+        "wires": [
+            [
+                "ecdf3e4351947758"
+            ]
+        ]
+    },
+    {
+        "id": "9542649075b5a8b4",
+        "type": "change",
+        "z": "e46a18d855767dce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Overide",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 320,
+        "wires": [
+            [
+                "1e44761f79b923bc"
+            ]
+        ]
+    },
+    {
+        "id": "31a0767412941c4b",
+        "type": "link in",
+        "z": "e46a18d855767dce",
+        "name": "Occupancy",
+        "links": [],
+        "x": 1335,
+        "y": 220,
+        "wires": [
+            [
+                "aecd1669ca3f2678"
+            ]
+        ]
+    },
+    {
+        "id": "a55597996872b52f",
+        "type": "api-call-service",
+        "z": "e46a18d855767dce",
+        "name": "Air Purifer - set preset Medium",
+        "server": "",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "fan",
+        "service": "set_percentage",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "fan.bedroom_air_purifier"
+        ],
+        "data": "{\"percentage\":\"66\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1830,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cd3a0d00e57db316",
+        "type": "api-call-service",
+        "z": "e46a18d855767dce",
+        "name": "Air Purifer - set preset Low",
+        "server": "",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "fan",
+        "service": "set_percentage",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "fan.bedroom_air_purifier"
+        ],
+        "data": "{\"percentage\":\"33\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1820,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "923e7dcf77c41df0",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "Input boolean - Comment",
+        "info": "Input boolean from Home assistant to be used to block automation control, then disable the block",
+        "x": 410,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "870bbed06b6d8f7e",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "Door sensor - Comment",
+        "info": "Door Sensor input. 2min after the door is opened disable air purifier and block automation",
+        "x": 740,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "657242ba631c2188",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "AQI input",
+        "info": "AQI input",
+        "x": 240,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ad361407e858acb3",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "Household Occupancy ",
+        "info": "Household Occupancy boolean",
+        "x": 180,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "252fefb5c782b4a7",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "Awake",
+        "info": "Awake boolean",
+        "x": 490,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6c0ff743ca86e306",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "Comment",
+        "info": "Adjust switch cut-off values based on desired AQI values",
+        "x": 1540,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "0e2a7b1d06461f81",
+        "type": "comment",
+        "z": "e46a18d855767dce",
+        "name": "Household Occupancy ",
+        "info": "Household Occupancy boolean",
+        "x": 1200,
+        "y": 220,
+        "wires": []
+    }
+]
